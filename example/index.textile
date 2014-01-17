@@ -1,0 +1,5 @@
+---
+---
+{% for person in site.data.member %}
+* "{{person.name}}":{{ person.name | datapage_url: 'people' }}
+{% endfor %}
