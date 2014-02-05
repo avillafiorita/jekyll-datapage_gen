@@ -1,31 +1,6 @@
-#
-# Jekyll allows data to be specified in yaml format in the _data dir.
-#
-# If the data is an array, liquid allows one to build an index page.
-# In some occasions, however, you also want to generate one page per record.
-# Consider, e.g., a list of team members.
-#
-# This plugins allows one to specify data files for which we want to generate
-# one page per record.
-#
-# The specification in config.yml is as follows:
-#
-# data_gen:
-# - data: <<name of the data>>
-#   template: <<name of the template to use to generate the page>>
-#   name: <<field used to generate the filename>>
-#   dir: <<directory in which files are to be generated>> 
-#
-# where:
-# - @data@ is the name of the file to read
-# - @name@ is the name of a field which contains a unique identifier that can 
-#   be used to generate a filename
-# - @template@ is the name of a template to generate the pages (it defaults to the value of @data@ + ".html")
-# - @dir is the directory where pages are generated (it defaults to the value of @data@)
-#
-# A liquid tag is also made available to generate a link to a given page
-#
-# 
+# Generate pages from individual records in yml files
+# (c) 2014 Adolfo Villafiorita
+# Distributed under the conditions of the MIT License
 
 module Jekyll
 
