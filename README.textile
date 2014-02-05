@@ -98,7 +98,7 @@ Adolfo Villafiorita
 
 h1. Known Bugs
 
-No known bug; unknown number of unknown bugs.
+No known bugs; unknown number of unknown bugs.
 
 h1. License
 
