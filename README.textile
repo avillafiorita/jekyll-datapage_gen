@@ -23,12 +23,12 @@ h1. Usage
 The specification in config.yml is as follows:
 
 <pre>
- data_gen:
- - data: <<name of the data>>
-   template: <<name of the template to use to generate the page>>
-   name: <<field used to generate the filename>>
-   dir: <<directory in which files are to be generated>> 
- - ... 
+page_gen:
+- data: <<name of the data>>
+  template: <<name of the template to use to generate the page>>
+  name: <<field used to generate the filename>>
+  dir: <<directory in which files are to be generated>>
+- ...
 </pre>
 
 where:
