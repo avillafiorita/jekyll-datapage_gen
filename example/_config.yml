@@ -3,3 +3,7 @@ page_gen:
     template: 'profile'
     name: 'name'
     dir: 'people'
+  - data: 'pet'
+    template: 'profile'
+    name: 'name'
+    dir: 'pets'

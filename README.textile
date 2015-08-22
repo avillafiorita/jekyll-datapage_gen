@@ -1,6 +1,6 @@
 h1. Jekyll Data Pages Generator
 
-Jekyll allows data to be specified in YAML format in the @_data@ dir.
+Jekyll allows data to be specified in YAML or JSON format in the @_data@ dir.
 
 If the data is an array, it is straightforward to build an index page, containing all records, using a Liquid for loop.  In some occasions, however, you also want to generate one page per record.  Consider, e.g., a list of team members, for which you want to generate an individual page for each member.
 
@@ -23,12 +23,12 @@ h1. Usage
 The specification in config.yml is as follows:
 
 <pre>
- data_gen:
- - data: <<name of the data>>
-   template: <<name of the template to use to generate the page>>
-   name: <<field used to generate the filename>>
-   dir: <<directory in which files are to be generated>> 
- - ... 
+page_gen:
+  - data: <<name of the data>>
+    template: <<name of the template to use to generate the page>>
+    name: <<field used to generate the filename>>
+    dir: <<directory in which files are to be generated>>
+  - ...
 </pre>
 
 where:
@@ -59,6 +59,24 @@ h1. Example
   bio: another long bio
 - name: aaron ciaghi
   bio: another very long bio
+</pre>
+
+Alternatively, you could have @member.json@ file stored in the @_data@ directory with the following content and the example would work the same:
+<pre>
+[
+  {
+    "name": "adolfo villafiorita",
+    "bio": "long bio goes here"
+  },
+  {
+    "name": "pietro molini",
+    "bio": "another long bio"
+  },
+  {
+    "name": "aaron ciaghi",
+    "bio": "another very long bio"
+  }
+]
 </pre>
 
 2. There is a @profile.html@ file stored in the @_layouts@ directory:

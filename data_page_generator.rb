@@ -35,13 +35,12 @@ module Jekyll
       if data
         data.each do |data_spec|
           # todo: check input data correctness
-          data_file = '_data/' + data_spec['data'] + ".yml"
           template = data_spec['template'] || data_spec['data']
           name = data_spec['name']
           dir = data_spec['dir'] || data_spec['data']
           
-          if File.exists?(data_file) and site.layouts.key? template
-            records =  YAML.load(File.read(data_file))
+          if site.layouts.key? template
+            records =  site.data[data_spec['data']]
             records.each do |record|
               site.pages << DataPage.new(site, site.source, dir, record, name, template)
             end

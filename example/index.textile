@@ -1,5 +1,11 @@
 ---
 ---
+<h1>People (generated from YAML)</h1>
 {% for person in site.data.member %}
 * "{{person.name}}":{{ person.name | datapage_url: 'people' }}
+{% endfor %}
+
+<h1>Pets (generated from JSON)</h1>
+{% for pet in site.data.pet %}
+* "{{pet.name}}":{{ pet.name | datapage_url: 'pets' }}
 {% endfor %}
