@@ -19,11 +19,9 @@ module Jekyll
 
     private
 
-    # copied from Jekyll
+    # strip characters and whitespace to create valid filenames, also lowercase
     def sanitize_filename(name)
-      name = name.gsub(/[^\w\s_-]+/, '')
-      name = name.gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2')
-      name = name.gsub(/\s+/, '_')
+      return name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     end
   end
 
@@ -62,11 +60,9 @@ module Jekyll
 
     private
 
-    # copied from Jekyll
+    # strip characters and whitespace to create valid filenames, also lowercase
     def sanitize_filename(name)
-      name = name.gsub(/[^\w\s_-]+/, '')
-      name = name.gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2')
-      name = name.gsub(/\s+/, '_')
+      return name.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     end
   end
 
