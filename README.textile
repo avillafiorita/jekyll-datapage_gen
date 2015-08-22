@@ -43,7 +43,7 @@ More than one data source can be specified: the generator iterates over each ele
 A liquid tag is also made available to generate a link to a given page.  For instance:
 
 <pre>
-   {{ page_name | data_page_url: dir }}
+   {{ page_name | datapage_url: dir }}
 </pre>
  
 generates a link to @page_name@ in @dir@. 
