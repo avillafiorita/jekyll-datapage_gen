@@ -28,6 +28,7 @@ page_gen:
     template: <<name of the template to use to generate the page>>
     name: <<field used to generate the filename>>
     dir: <<directory in which files are to be generated>>
+    extension: <<extension used to generate the filename>>
   - ...
 </pre>
 
@@ -37,6 +38,7 @@ where:
 - @name@ := is the name of a field which contains a unique identifier that can  be used to generate a filename
 - @template@ := is the name of a template to generate the pages (it defaults to the value of @data@ + ".html"). Optional, if not set, the generator uses the value of the @data@ field
 - @dir@ := is the directory where pages are generated (it defaults to the value of @data@). Optional, if not specified, the generator uses the value of the @data@ field.
+- @extension@ := is the extension of the generated file (it defaults to the "html" extension). Optional, if not specified, the generator uses "html" extension.
 
 More than one data source can be specified: the generator iterates over each element of the @data_gen@ array.
 
