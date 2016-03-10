@@ -36,7 +36,7 @@ where:
 
 - @data@ := is the name of the file to read
 - @name@ := is the name of a field which contains a unique identifier that can  be used to generate a filename
-- @template@ := is the name of a template to generate the pages (it defaults to the value of @data@ + ".html"). Optional, if not set, the generator uses the value of the @data@ field
+- @template@ := is the name of a template to generate the pages (it defaults to the value of @data@ + ".html"). *Optional:* if not set, the generator uses the value of the @data@ field
 - @dir@ := is the directory where pages are generated (it defaults to the value of @data@). Optional, if not specified, the generator uses the value of the @data@ field.
 - @extension@ := is the extension of the generated file (it defaults to the "html" extension). Optional, if not specified, the generator uses "html" extension.
 
@@ -110,7 +110,7 @@ $ cat _site/people/adolfo_villafiorita.html
 long bio goes here
 </pre>
 
-Check the example directory for a live demo.  (Notice that the ruby file in @_plugins@ is a symbolic link; you might have to removethe link and manually copy the ruby file in the @_plugins@ directory, if symbolic links do not work in your system.)
+Check the example directory for a live demo.  (Notice that the ruby file in @_plugins@ is a symbolic link; you might have to remove the link and manually copy the ruby file in the @_plugins@ directory, if symbolic links do not work in your system.)
 
 h1. Author
 
