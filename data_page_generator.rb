@@ -47,7 +47,6 @@ module Jekyll
               site.pages << DataPage.new(site, site.source, dir, record, name, template, extension)
             end
           else
-            puts "error. could not find #{data_file}" if not File.exists?(data_file)
             puts "error. could not find template #{template}" if not site.layouts.key? template
           end
         end
