@@ -48,7 +48,11 @@ A liquid tag is also made available to generate a link to a given page.  For ins
    {{ page_name | datapage_url: dir }}
 </pre>
  
-generates a link to @page_name@ in @dir@. 
+generates a link to @page_name@ in @dir@.
+
+h1. Named Folders
+
+By default the plugin generates one filename per record.  If you prefer to generate named folders, set the @page_gen-dirs@ to true in @config.yml@.
 
 h1. Example
 

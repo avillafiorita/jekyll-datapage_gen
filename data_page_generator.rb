@@ -1,5 +1,5 @@
 # Generate pages from individual records in yml files
-# (c) 2014 Adolfo Villafiorita
+# (c) 2014-2016 Adolfo Villafiorita
 # Distributed under the conditions of the MIT License
 
 module Jekyll
@@ -59,7 +59,12 @@ module Jekyll
     # use it like this: {{input | datapage_url: dir}}
     # output: dir / input .html
     def datapage_url(input, dir)
-      dir + "/" + sanitize_filename(input) + ".html"
+      @gen_dir = Jekyll.configuration({})['page_gen-dirs']
+      if @gen_dir then
+        dir + "/" + sanitize_filename(input) + "/"
+      else
+        dir + "/" + sanitize_filename(input) + ".html"
+      end
     end
 
     private
