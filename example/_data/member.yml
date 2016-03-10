@@ -1,6 +1,9 @@
-- name: adolfo villafiorita
+- full_name: adolfo villafiorita
+  first_name: adolfo
   bio: long bio goes here
-- name: pietro molini
+- full_name: pietro molini
+  first_name: pietro
   bio: another long bio
-- name: aaron ciaghi
+- full_name: aaron ciaghi
+  first_name: aaron
   bio: another very long bio

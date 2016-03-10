@@ -1,9 +1,10 @@
+page_gen-dirs: true # uncomment, if you prefer to generate named folders
 page_gen:
   - data: 'member'
     template: 'profile'
-    name: 'name'
+    name: 'full_name'
     dir: 'people'
   - data: 'pet'
     template: 'profile'
-    name: 'name'
+    name: 'full_name'
     dir: 'pets'
