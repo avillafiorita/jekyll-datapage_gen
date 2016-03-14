@@ -7,3 +7,6 @@
 - full_name: aaron ciaghi
   first_name: aaron
   bio: another very long bio
+- full_name: Mr. John Smith
+  first_name: John
+  bio: his name demonstrates that we leave dots in filenames
