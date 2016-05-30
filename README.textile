@@ -116,6 +116,10 @@ long bio goes here
 
 Check the example directory for a live demo.  (Notice that the ruby file in @_plugins@ is a symbolic link; you might have to remove the link and manually copy the ruby file in the @_plugins@ directory, if symbolic links do not work in your system.)
 
+h1. Compatibility
+
+Tested with Jekyll 3.1.6, it should also work with previous versions of Jekyll.  Try with the included example and open an issue if you find any compatibility issue.
+
 h1. Author
 
 Adolfo Villafiorita
