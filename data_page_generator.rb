@@ -75,11 +75,18 @@ module Jekyll
           name = data_spec['name']
           dir = data_spec['dir'] || data_spec['data']
           extension = data_spec['extension'] || "html"
-          
+
           if site.layouts.key? template
             # records is the list of records defined in _data.yml
             # for which we want to generate different pages
-            records =  site.data[data_spec['data']]
+            records = nil
+            data_spec['data'].split('.').each do |level|
+              if records.nil?
+                records = site.data[level]
+              else
+                records = records[level]
+              end
+            end
             records.each do |record|
               site.pages << DataPage.new(site, site.source, index_files, dir, record, name, template, extension)
             end
@@ -93,7 +100,7 @@ module Jekyll
 
   module DataPageLinkGenerator
     include Sanitizer
-    
+
     # use it like this: {{input | datapage_url: dir}}
     # to generate a link to a data_page.
     #
