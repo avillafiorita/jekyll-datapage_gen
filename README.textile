@@ -29,6 +29,7 @@ page_gen:
     name: <<field used to generate the filename>>
     dir: <<directory in which files are to be generated>>
     extension: <<extension used to generate the filename>>
+    filter: <<property to filter data records by>>
   - ...
 </pre>
 
@@ -39,6 +40,7 @@ where:
 - @template@ := is the name of a template to generate the pages (it defaults to the value of @data@ + ".html"). *Optional:* if not set, the generator uses the value of the @data@ field
 - @dir@ := is the directory where pages are generated (it defaults to the value of @data@). Optional, if not specified, the generator uses the value of the @data@ field.
 - @extension@ := is the extension of the generated file (it defaults to the "html" extension). Optional, if not specified, the generator uses "html" extension.
+- @filter@ := is a property of each data record that must return a true-ish value for the record to be included in the dataset. Optional, if not specified, all records from the dataset are included.
 
 More than one data source can be specified: the generator iterates over each element of the @data_gen@ array.
 
