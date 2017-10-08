@@ -24,7 +24,8 @@ The specification in config.yml is as follows:
 
 <pre>
 page_gen:
-  - data: <<name of the data>>
+  - index_files: <<true or false>
+    data: <<name of the data>>
     template: <<name of the template to use to generate the page>>
     name: <<field used to generate the filename>>
     dir: <<directory in which files are to be generated>>
@@ -35,6 +36,7 @@ page_gen:
 
 where:
 
+- @index_files@ := specifies if we want to generate named folders (true) or not (false)
 - @data@ := is the name of the file to read
 - @name@ := is the name of a field which contains a unique identifier that can  be used to generate a filename
 - @template@ := is the name of a template to generate the pages (it defaults to the value of @data@ + ".html"). *Optional:* if not set, the generator uses the value of the @data@ field
@@ -49,7 +51,7 @@ A liquid tag is also made available to generate a link to a given page.  For ins
 <pre>
    {{ page_name | datapage_url: dir }}
 </pre>
- 
+
 generates a link to @page_name@ in @dir@.
 
 h1. Named Folders
