@@ -9,3 +9,21 @@ page_gen:
     template: 'pet'
     name: 'pet_name'
     dir: 'pets'
+
+  - data: 'books'
+    template: 'book'
+    name: 'title'
+    dir: 'all-books'
+
+  - data: 'books'
+    template: 'book'
+    name: 'title'
+    dir: 'books-i-have-read'
+    filter: read  # read is a boolean value in the YML file
+
+  - data: 'books'
+    template: 'book'
+    name: 'title'
+    dir: 'books-i-have-not-read'
+    filter: read  # read is a boolean value in the YML file
+

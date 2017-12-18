@@ -17,3 +17,13 @@ title: DataGen Demo
 {% endfor %}
 </ul>
 
+<h1>Filter Examples (generated from book in YAML)</h1>
+
+<h2>Approach 1: Filter Links, Generate all pages</h2>
+
+<p>In the page <a href="books.html">books</a>, the books are organized in two lists: books I have read and those I have not.  However a page is still generated for each book. <b>This is not a filter on the pages being generated: it is only a filter on the links being generated.</b></p>
+
+<h2>Approach 2: <tt>filter</tt> keyword</h2>
+
+<p>If the yaml matter has a boolean field (for instance: <tt>filter</tt> or, more evocatively, <tt>publish</tt>), I can specify it in <tt>_config</tt> to select what pages have to be generated.</p>
+
