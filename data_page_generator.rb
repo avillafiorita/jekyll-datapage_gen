@@ -1,3 +1,4 @@
+# coding: utf-8
 # Generate pages from individual records in yml files
 # (c) 2014-2016 Adolfo Villafiorita
 # Distributed under the conditions of the MIT License
@@ -85,7 +86,13 @@ module Jekyll
                 records = records[level]
               end
             end
+
+            # apply filtering conditions:
+            # - filter requires the name of a boolean field
+            # - filter_condition evals a ruby expression
             records = records.select { |r| r[data_spec['filter']] } if data_spec['filter']
+            records = records.select { |record| eval(data_spec['filter_condition']) } if data_spec['filter_condition']
+
             records.each do |record|
               site.pages << DataPage.new(site, site.source, index_files, dir, record, name, template, extension)
             end

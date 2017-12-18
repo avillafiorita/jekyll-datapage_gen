@@ -27,3 +27,8 @@ title: DataGen Demo
 
 <p>If the yaml matter has a boolean field (for instance: <tt>filter</tt> or, more evocatively, <tt>publish</tt>), I can specify it in <tt>_config</tt> to select what pages have to be generated.</p>
 
+<h2>Approach 3: <tt>filter_condition</tt> keyword</h2>
+
+<p>I can use the <tt>filter_condition</tt> field in <tt>config.yml</tt>. The field takes as argument a string with ruby expression which should evaluate to a Boolean value.  The <tt>filter_condition</tt> is used as an additional selector on top of the <tt>filter</tt> condition.</p>
+
+<p>See the documentation for more details.</p>
