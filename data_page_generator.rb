@@ -70,6 +70,7 @@ module Jekyll
       data = site.config['page_gen']
       if data
         data.each do |data_spec|
+          index_files_for_this_data = data_spec['index_files'] != nil ? data_spec['index_files'] : index_files
           template = data_spec['template'] || data_spec['data']
           name = data_spec['name']
           dir = data_spec['dir'] || data_spec['data']
@@ -94,7 +95,7 @@ module Jekyll
             records = records.select { |record| eval(data_spec['filter_condition']) } if data_spec['filter_condition']
 
             records.each do |record|
-              site.pages << DataPage.new(site, site.source, index_files, dir, record, name, template, extension)
+              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, record, name, template, extension)
             end
           else
             puts "error. could not find template #{template}" if not site.layouts.key? template
