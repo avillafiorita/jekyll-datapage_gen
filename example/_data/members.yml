@@ -1,0 +1,15 @@
+- full_name: Adolfo Villafiorita
+  first_name: Adolfo
+  bio: long bio goes here
+
+- full_name: Pietro Molini
+  first_name: Pietro
+  bio: another long bio
+
+- full_name: Aaron Ciaghi
+  first_name: Aaron
+  bio: another very long bio
+
+- full_name: Mr. John Smith
+  first_name: John
+  bio: his name demonstrates that we leave dots in filenames
