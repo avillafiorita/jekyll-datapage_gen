@@ -32,3 +32,17 @@ title: DataGen Demo
 <p>I can use the <tt>filter_condition</tt> field in <tt>config.yml</tt>. The field takes as argument a string with ruby expression which should evaluate to a Boolean value.  The <tt>filter_condition</tt> is used as an additional selector on top of the <tt>filter</tt> condition.</p>
 
 <p>See the documentation for more details.</p>
+
+<h1>Hierarchy Example</h1>
+
+<p>If your data is structured in a hierarhcy, specify the path to access your data in the <tt>data</tt> field.</p>
+
+<p>See the file <tt>_data/hierarchy.yml</tt> for a working example.  The pages generated are the following:</p>
+
+<ul>
+    {% for person in site.data.hierarchy.people %}
+    <li>
+        <a href="{{ person.full_name | datapage_url: 'hierarchy' }}">{{person.full_name}}</a>
+    </li>
+    {% endfor %}
+</ul>

@@ -52,7 +52,10 @@ where:
     it overrides the value of the global declaration `page_gen-dirs`.
 
 `data`
-:   is the name of the data file to read (YAML, Json, or CSV)
+:   is the name of the data file to read (YAML, Json, or CSV). Use the
+    full pathi if your data is structured in a hierarchy.  For
+    instance: `hierarchy.people` will loop over a variable `people` in
+    the `_data/hierarchy.yml` file
 
 `name`
 :   is the name of a field in data which contains a unique identifier
