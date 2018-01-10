@@ -30,7 +30,8 @@ module Jekyll
     # - `name` is the key in `data` which determines the output filename
     # - `template` is the name of the template for generating the page
     # - `extension` is the extension for the generated file
-    def initialize(site, base, index_files, dir, data, name, template, extension)
+    def initialize(site, base, index_files, dir, data, name, template, extension, paginatehook)
+    
       @site = site
       @base = base
 
@@ -45,6 +46,17 @@ module Jekyll
 
       self.process(@name)
       self.read_yaml(File.join(base, '_layouts'), template + ".html")
+
+      # Will look for (and replace) ':genname' within the pagination->tag value
+      #  With the name value from the generated page  
+      #  So long as 'paginatehook' is set to true within the item in the page_gen array
+      if paginatehook == true
+        paginatortag = self.data['pagination']['tag']
+        if paginatortag
+          self.data['pagination']['tag'] = paginatortag.sub(':genname', data[name])
+        end
+      end
+
       self.data['title'] = data[name]
       # add all the information defined in _data for the current record to the
       # current page (so that we can access it with liquid tags)
@@ -75,6 +87,7 @@ module Jekyll
           name = data_spec['name']
           dir = data_spec['dir'] || data_spec['data']
           extension = data_spec['extension'] || "html"
+          paginatehook = data_spec['paginatehook']
 
           if site.layouts.key? template
             # records is the list of records defined in _data.yml
@@ -95,7 +108,7 @@ module Jekyll
             records = records.select { |record| eval(data_spec['filter_condition']) } if data_spec['filter_condition']
 
             records.each do |record|
-              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, record, name, template, extension)
+              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, record, name, template, extension, paginatehook)
             end
           else
             puts "error. could not find template #{template}" if not site.layouts.key? template
