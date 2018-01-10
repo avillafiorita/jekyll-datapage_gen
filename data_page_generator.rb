@@ -50,10 +50,12 @@ module Jekyll
       # Will look for (and replace) ':genname' within the pagination->tag value
       #  With the name value from the generated page  
       #  So long as 'paginatehook' is set to true within the item in the page_gen array
-      if paginatehook == true
-        paginatortag = self.data['pagination']['tag']
-        if paginatortag
-          self.data['pagination']['tag'] = paginatortag.sub(':genname', data[name])
+      if (paginatehook == true) && self.data['pagination']
+        if self.data['pagination']['tag']
+          paginatortag = self.data['pagination']['tag']
+          if paginatortag
+            self.data['pagination']['tag'] = paginatortag.sub(':genname', data[name])
+          end
         end
       end
 
