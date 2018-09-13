@@ -1,0 +1,7 @@
+page_gen-dirs: false # uncomment, if you prefer to generate named folders
+
+page_gen:
+  - data: books
+    name: NORM_name
+    dir: all-books
+    extension: html

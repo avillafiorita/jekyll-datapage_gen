@@ -1,0 +1,16 @@
+# Some records demonstrating the issue
+
+- author: Harper Lee
+  title: To Kill a Mockingbird
+  read: no
+  rating: 4.26
+  year: 1960
+  position: 1
+  NORM_name: lee.
+- author: George Orwell
+  title: 1984
+  read: yes
+  rating: 4.15
+  year: 1949
+  position: 2
+  NORM_name: orwell.
