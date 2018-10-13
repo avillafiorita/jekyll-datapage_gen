@@ -53,7 +53,7 @@ where:
 
 `data`
 :   is the name of the data file to read (YAML, Json, or CSV). Use the
-    full pathi if your data is structured in a hierarchy.  For
+    full path if your data is structured in a hierarchy.  For
     instance: `hierarchy.people` will loop over a variable `people` in
     the `_data/hierarchy.yml` file
 
@@ -246,6 +246,22 @@ for falsity (`read` has to be false).
 The filter condition allows to select only those records in which
 `record['read']` is false.
 
+**Remark**
+If you want to filter on nested fields, use multiple `[]`.  For instance:
+
+    filter_condition: "record['did-i']['read'] == false"
+    
+works with the following data structure:
+
+    - author: Harper Lee
+      title: To Kill a Mockingbird
+      did-i:
+        read: no
+      rating: 4.26
+      year: 1960
+      position: 1
+
+
 **Example 2.** Consider the following declaration in `_config.yml`:
 
     - data: 'books'
@@ -279,6 +295,10 @@ according to the value of the `read` flag.
 Of course, such an approach makes sense only for variables with a
 limited number of values, since one needs to explicitly specify in
 `_config.yml` conditions and target directories.
+
+
+
+
 
 Compatibility
 =============
