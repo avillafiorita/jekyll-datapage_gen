@@ -39,16 +39,21 @@ module Jekyll
       #
       # the value of these variables changes according to whether we
       # want to generate named folders or not
-      filename = sanitize_filename(data[name]).to_s
-      @dir = dir + (index_files ? "/" + filename + "/" : "")
-      @name = (index_files ? "index" : filename) + "." + extension.to_s
+      if data[name] == nil
+        puts "error (datapage_gen). empty value for field '#{name}' in record #{data}"
+      else
+        filename = sanitize_filename(data[name]).to_s
 
-      self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), template + ".html")
-      self.data['title'] = data[name]
-      # add all the information defined in _data for the current record to the
-      # current page (so that we can access it with liquid tags)
-      self.data.merge!(data)
+        @dir = dir + (index_files ? "/" + filename + "/" : "")
+        @name = (index_files ? "index" : filename) + "." + extension.to_s
+
+        self.process(@name)
+        self.read_yaml(File.join(base, '_layouts'), template + ".html")
+        self.data['title'] = data[name]
+        # add all the information defined in _data for the current record to the
+        # current page (so that we can access it with liquid tags)
+        self.data.merge!(data)
+      end
     end
   end
 
@@ -98,7 +103,7 @@ module Jekyll
               site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, record, name, template, extension)
             end
           else
-            puts "error. could not find template #{template}" if not site.layouts.key? template
+            puts "error (datapage_gen). could not find template #{template}" if not site.layouts.key? template
           end
         end
       end
