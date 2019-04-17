@@ -143,11 +143,11 @@ same:
     ]
 
 2. There is a `profile.html` file stored in the `_layouts` directory:
+```
+<h1>{{page.name}}</h1>
 
-    <h1>{{page.name}}</h1>
-
-    {{page.bio}}
-
+{{page.bio}}
+```
 3. `_config.yml` contains the following:
 
     page_gen:
