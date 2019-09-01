@@ -297,9 +297,6 @@ limited number of values, since one needs to explicitly specify in
 `_config.yml` conditions and target directories.
 
 
-
-
-
 Compatibility
 =============
 
