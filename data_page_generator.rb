@@ -45,7 +45,7 @@ module Jekyll
         record = data
         raw_filename = eval(name_expr)
         if raw_filename == nil
-          puts "error (datapage_gen). name_expr '#{name}' generated an empty value in record #{data}"
+          puts "error (datapage_gen). name_expr '#{name_expr}' generated an empty value in record #{data}"
           return
         end
       else
