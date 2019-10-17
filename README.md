@@ -46,7 +46,7 @@ The specification in config.yml is as follows:
 
 where:
 
-`index_files`
+`index_files`me excess lines
 :   specifies if we want to generate named folders (true) or not
     (false) for the current set of data.  **Optional:** if specified,
     it overrides the value of the global declaration `page_gen-dirs`.
@@ -60,6 +60,12 @@ where:
 `name`
 :   is the name of a field in data which contains a unique identifier
     that can be used to generate a filename
+
+`name_expr`
+:   is an optional Ruby expression used to generate a filename.  The
+expression can reference fields of the data being read using the `record`
+hash(e.g., `record['first_name'] + "_" + record['last_name']`)
+**Optional:** if set, this overrides `name`
 
 `template`
 :   is the name of a template to generate the pages (it defaults to the
@@ -296,11 +302,35 @@ Of course, such an approach makes sense only for variables with a
 limited number of values, since one needs to explicitly specify in
 `_config.yml` conditions and target directories.
 
+Generating Filename with an Expression
+======================================
+
+You can generate filenames with an expression, by replacing `name` with `name_expr`.
+For example, if you have data in a .yml file that looks like this:
+```
+    - first_name: adolfo
+      last_name: villafiorita
+      bio: long bio goes here
+    - first_name: pietro
+      last_name: molini
+      bio: another long bio
+    - first_name: aaron
+      last_name: ciaghi
+      bio: another very long bio
+```
+
+Your `_config.yml` could contain the following:
+
+    page_gen:
+      - data: 'members'
+        template: 'profile'
+        name_expr: record['first_name'] + "_" + record['last_name']
+        dir: 'people'
 
 Compatibility
 =============
 
-Run with Jekyll 3.1.6 and Jekyll 3.6.2, it should also work with
+Run with Jekyll 3.1.6, 3.6.2 and 3.8.5, it should also work with
 previous versions of Jekyll. Try with the included example and open an
 issue if you find any compatibility issue.
 
