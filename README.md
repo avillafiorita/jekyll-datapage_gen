@@ -46,7 +46,7 @@ The specification in config.yml is as follows:
 
 where:
 
-`index_files`
+`index_files`me excess lines
 :   specifies if we want to generate named folders (true) or not
     (false) for the current set of data.  **Optional:** if specified,
     it overrides the value of the global declaration `page_gen-dirs`.
@@ -302,9 +302,8 @@ Of course, such an approach makes sense only for variables with a
 limited number of values, since one needs to explicitly specify in
 `_config.yml` conditions and target directories.
 
-
 Generating Filename with an Expression
-=============
+======================================
 
 You can generate filenames with an expression, by replacing `name` with `name_expr`.
 For example, if you have data in a .yml file that looks like this:
@@ -327,7 +326,6 @@ Your `_config.yml` could contain the following:
         template: 'profile'
         name_expr: record['first_name'] + "_" + record['last_name']
         dir: 'people'
-
 
 Compatibility
 =============
