@@ -111,6 +111,9 @@ module Jekyll
                 records = records[level]
               end
             end
+            if (records.kind_of?(Hash))
+              records = records.values
+            end
 
             # apply filtering conditions:
             # - filter requires the name of a boolean field
