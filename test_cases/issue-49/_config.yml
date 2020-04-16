@@ -1,0 +1,5 @@
+page_gen:
+  - data: releases
+    template: album
+    name: title
+    dir: records

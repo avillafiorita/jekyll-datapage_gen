@@ -1,0 +1,17 @@
+---
+---
+
+<section class="section">
+    <div class="container">
+        {% for image in site.data.inktober %}
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p class="is-size-3 title"><strong><a href="{{ image.title | datapage_url: 'inktober' }}">{{ image.title }}</a></strong></p>
+                    <p class="subtitle is-size-6">Veröffentlicht am: {{ image.date }}</p>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>

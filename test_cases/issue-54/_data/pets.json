@@ -1,0 +1,26 @@
+[
+  {
+      "pet_name": "Felix the Cat",
+      "is_a": "cat"
+  },
+  {
+      "pet_name": "Fido The Dog",
+      "is_a": "dog"
+  },
+  {
+      "pet_name": "Buddy The Dog",
+      "is_a": "dog"
+  },
+  {
+      "pet_name": "Ace The Dog",
+      "is_a": "dog"
+  },
+  {
+      "pet_name": "Biscuit The Cat",
+      "is_a": "cat"
+  },
+  {
+      "pet_name": "Caramel The Cat",
+      "is_a": "cat"
+  }
+]

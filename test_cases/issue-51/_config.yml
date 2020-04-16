@@ -1,0 +1,8 @@
+page_gen-dirs: true # uncomment, if you prefer to generate named folders
+
+page_gen:
+  - data: 'books'
+    template: 'book'
+    name: 'title'
+    dir: 'books-i-have-read'
+    filter: read  # read is a boolean value in the YML file

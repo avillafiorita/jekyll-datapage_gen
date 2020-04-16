@@ -1,0 +1,12 @@
+people:
+    - full_name: "Professor X"
+      webpage: "http://en.wikipedia.org/wiki/Professor_X"
+      github: profx
+      role: faculty
+      bio: |
+        Professor X is the leader and founder of X-Men. 
+    - full_name: "Scott Summers"
+      webpage: "http://en.wikipedia.org/wiki/Cyclops_(comics)"
+      role: staff
+      bio: |
+        Scott, also known as Cyclops, shoots lasers from his eyes, which makes him the perfect administrative assistant.

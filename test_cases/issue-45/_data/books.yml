@@ -1,0 +1,38 @@
+# Best Books of the 20th Century according to goodreads
+# (Notice that "The Catcher in the Rye" appears twice in the original listing)
+
+- author: Harper Lee
+  title: To Kill a Mockingbird
+  did-i:
+    read: no
+  rating: 4.26
+  year: 1960
+  position: 1
+- author: George Orwell
+  title: 1984
+  did-i:
+    read: yes
+  rating: 4.15
+  year: 1949
+  position: 2
+- author: F. Scott Fitzgerald
+  title: The Great Gatsby
+  did-i:
+    read: yes
+  rating: 3.89
+  year: 1925
+  position: 3
+- title: "Harry Potter and the Sorcerer's Stone (Harry Potter, #1)"
+  author: J.K. Rowling 
+  did-i:
+    read: yes
+  rating: 4.45
+  position: 4
+  year: 1998
+- author: George Orwell
+  title: Animal Farm
+  did-i:
+    read: no
+  rating: 3.88
+  year: 1945
+  position: 5

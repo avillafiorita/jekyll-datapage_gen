@@ -1,0 +1,91 @@
+# Best Books of the 20th Century according to goodreads
+# (Notice that "The Catcher in the Rye" appears twice in the original listing)
+
+- author: Harper Lee
+  title: To Kill a Mockingbird
+  read: no
+  rating: 4.26
+  year: 1960
+  position: 1
+- author: George Orwell
+  title: 1984
+  read: yes
+  rating: 4.15
+  year: 1949
+  position: 2
+- author: F. Scott Fitzgerald
+  title: The Great Gatsby
+  read: no
+  rating: 3.89
+  year: 1925
+  position: 3
+- title: "Harry Potter and the Sorcerer's Stone (Harry Potter, #1)"
+  author: J.K. Rowling 
+  read: no
+  rating: 4.45
+  position: 4
+  year: 1998
+- author: George Orwell
+  title: Animal Farm
+  read: yes
+  rating: 3.88
+  year: 1945
+  position: 5
+- author: J.R.R. Tolkien
+  title: The Hobbit
+  read: no
+  rating: 4.25
+  year: 1937
+  position: 6
+- author: Anne Frank
+  title: The Diary of a Young Girl
+  rating: 4.10
+  read: no
+  position: 7
+- author: J.D. Salinger
+  title: The Catcher in the Rye
+  read: no
+  rating: 3.79
+  year: 1951
+  position: 8
+- author: Ray Bradbury
+  title: Fahrenheit 451
+  read: yes
+  rating: 3.98
+  year: 1953
+  position: 9
+- author: John Steinbeck
+  title: The Grapes of Wrath
+  read: yes
+  rating: 3.93
+  year: 1939
+  position: 10
+- author: C.S. Lewis
+  title: The Lion, the Witch, and the Wardrobe (Chronicles of Narnia, \#1)
+  read: no
+  rating: 4.19
+  year: 
+  position: 11
+- author: Gabriel García Márquez
+  title: One Hundred Years of Solitude
+  read: yes
+  rating: 4.04
+  year: 1967
+  position: 12
+- author: Aldous Huxley
+  title: Brave New World
+  read: yes
+  rating: 3.97
+  position: 13
+- author: Antoine de Saint-Exupéry
+  title: The Little Prince
+  read: yes
+  rating: 4.29
+  year: 1943
+  position: 14
+- author: John Steinbeck 
+  title:  Of Mice and Men
+  rating: 3.84
+  read: yes
+  year: 1937
+  position: 16

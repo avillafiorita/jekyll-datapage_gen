@@ -1,0 +1,9 @@
+- title: 1
+  date: DATE 1
+  published: true
+- title: 2
+  date: DATE 2
+  published: true
+- title: 3
+  date: DATE 3
+  published: false
