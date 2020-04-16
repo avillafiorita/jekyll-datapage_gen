@@ -75,10 +75,10 @@ module Jekyll
     end
   end
 
-  class DataPagesGenerator < Generator
+  class JekyllDatapageGenerator < Generator
     safe true
 
-    # generate loops over _config.yml/page_gen invoking the DataPage
+    # the function ~generate~ loops over _config.yml/page_gen invoking the DataPage
     # constructor for each record for which we want to generate a page
 
     def generate(site)
@@ -147,7 +147,7 @@ module Jekyll
     # Thus, if you use the `extension` feature of this plugin, you
     # need to generate the links by hand
     def datapage_url(input, dir)
-      extension = Jekyll.configuration({})['page_gen-dirs'] ? '/' : '.html'
+      extension = @context.registers[:site].config['page_gen-dirs'] ? '/' : '.html'
       "#{dir}/#{sanitize_filename(input)}#{extension}"
     end
   end
