@@ -25,6 +25,13 @@ Installation
 Download `data_page_generator.rb` and put it in the `_plugins` directory
 of your website.
 
+The plugin is now also packaged and distributed as a Gem
+(https://rubygems.org/search?utf8=%E2%9C%93&query=jekyll-datapage-generator).
+If you prefer, you can add it to your project Gemfile and then load it
+in the configuration (see
+https://jekyllrb.com/docs/plugins/installation/ for more details).
+
+
 Usage
 =====
 
