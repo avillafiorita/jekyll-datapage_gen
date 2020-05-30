@@ -106,6 +106,8 @@ where:
   the value of the =data= field.
 - =extension= :: is the extension of the generated file. *Optional:* if
   not specified, the generator uses "html" extension.
+- =page_data_prefix= :: is the prefix used to output the page data.
+  *Optional:* if not specified, no prefix is used
 - =filter= :: is a property of each data record that must return a
   true-ish value for the record to be included in the list of files to
   be generated. *Optional:* if not specified, all records from the
@@ -319,7 +321,7 @@ works with the following data structure:
     name: 'title'
     dir: 'books-by-orwell'
     filter_condition: "record['author'] == 'George Orwell'"
-    
+
 #+END_EXAMPLE
 
 In this case, I am testing the =author= field and generating pages only
