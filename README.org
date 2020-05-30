@@ -75,6 +75,7 @@ The specification in config.yml is as follows:
       data: <<name of the data>>
       template: <<name of the template to use to generate the page>>
       name: <<field used to generate the filename>>
+      title: <<field used for the page title>>
       dir: <<directory in which files are to be generated>>
       extension: <<extension used to generate the filename>>
       filter: <<property to filter data records by>>
@@ -98,6 +99,13 @@ where:
   using the =record= hash(e.g.,
   =record['first_name'] + "_" + record['last_name']=) *Optional:* if
   set, this overrides =name=
+- =title= :: is the name of a field in data which is used for the page
+  title. *Optional:* if not specified, the generator uses the filename.
+- =title_expr= :: is an optional Ruby expression used to generate the
+  page title. The expression can reference fields of the data being read
+  using the =record= hash(e.g.,
+  =record['first_name'] + "_" + record['last_name']=) *Optional:* if
+  set, this overrides =title=
 - =template= :: is the name of a template to generate the pages (it
   defaults to the value of =data= + ".html"). *Optional:* if not set,
   the generator uses the value of the =data= field
@@ -319,7 +327,7 @@ works with the following data structure:
     name: 'title'
     dir: 'books-by-orwell'
     filter_condition: "record['author'] == 'George Orwell'"
-    
+
 #+END_EXAMPLE
 
 In this case, I am testing the =author= field and generating pages only
