@@ -2,33 +2,21 @@
 #+AUTHOR: Adolfo Villafiorita
 #+STARTUP: showall
 
-* !!! ATTENTION: BREAKING CHANGE !!!
-
-The source file of this generator has been renamed
-=jekyll-datapage-generator.rb=, to make gem and plugin name uniform
-(see https://github.com/avillafiorita/jekyll-datapage_gen/issues/70
-for an explanation).  This should simplify installation as a gem, but
-requires to change the name of the plugin in the =_config.yml= file,
-if you are upgrading from an earlier version.
-
-Have a look at the [[#Installation][Installation]] section for more details.
-
 * Jekyll Data Pages Generator
   :PROPERTIES:
   :CUSTOM_ID: jekyll-data-pages-generator
   :END:
 
-Jekyll allows data to be specified in YAML or JSON format in the =_data=
-dir.
+Jekyll allows data to be specified in YAML, CSV, and JSON format in the
+=_data= dir.
 
 If the data is an array, it is straightforward to build an index page,
-containing all records, using a Liquid loop. In some occasions, however,
-you also want to generate one page per record. Consider, e.g., a list of
-team members, for which you want to generate an individual page for each
-member.
+containing all records, using a Liquid loop. In some occasions, however, you
+also want to generate one page per record. Consider, e.g., a list of team
+members, for which you want to generate an individual page for each member.
 
-This generator allows one to specify data files for which we want to
-generate one page per record.
+This generator allows one to specify data files for which we want to generate
+one page per record.
 
 Among the advantages:
 
@@ -37,12 +25,9 @@ Among the advantages:
 - it manages multiple data sources in the same website
 
 * Installation
-  :PROPERTIES:
-  :CUSTOM_ID: installation
-  :END:
 
-*Option 1.* Add =gem "jekyll-datapage-generator"= to your project
-Gemfile and then load it as a plugin in the configuration:
+*Option 1.* Add =gem "jekyll-datapage-generator"= to your project Gemfile and
+then load it as a plugin in the configuration:
 
 #+BEGIN_SRC yaml
 plugins:
@@ -52,87 +37,106 @@ plugins:
 (See https://jekyllrb.com/docs/plugins/installation/ for more details.)
 
 *Option 2.* Download =jekyll-datapage-generator.rb= and put it in the
-=_plugins= directory of your website.  /Remember to delete older
-versions of the source file from the =_plugins= directory or you might
-run into errors./
+=_plugins= directory of your website.  /Remember to delete older versions of
+the source file from the =_plugins= directory or you might run into errors./
 
+* Quick Start
 
+Read the [[Example]] section or the included example to get started quickly.
 
 * Usage
-  :PROPERTIES:
-  :CUSTOM_ID: usage
-  :END:
 
-- Specify in =_config.yml= the data files for which you want individual
-  page to be generated.
+- Specify in =_config.yml= the data files for which you want to generate
+  individual pages. 
 - Launch Jekyll
 
-The specification in config.yml is as follows:
+The specification in =config.yml= looks like:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE yaml
+  page_gen-dirs: [true|false]
+
   page_gen:
-    - index_files: <<true or false>
-      data: <<name of the data>>
-      template: <<name of the template to use to generate the page>>
-      name: <<field used to generate the filename>>
-      title: <<field used for the page title>>
-      dir: <<directory in which files are to be generated>>
-      extension: <<extension used to generate the filename>>
-      filter: <<property to filter data records by>>
-    - ...
+  - data: [name of a data set in _data]
+    template: [name of template in _layouts: will be used to render pages]
+    dir: [directory where filenames will be generated]
+    index_files: [true|false]
+    name: [field used to generate the filename]
+    name_expr: [a Ruby expression to generate the filename (alternative to name)]
+    title: [field used to generate the page title]
+    title_expr: [a Ruby expression to generate the filename (alternative to title)]
+    extension: [extension used to generate the filename]
+    filter: [property to filter data records by]
+    filter_condition: [a Ruby expression to filter data]
+    
+  [another set of data, if you want ...]
 #+END_EXAMPLE
 
 where:
 
-- =index_files=me excess lines :: specifies if we want to generate named
-  folders (true) or not (false) for the current set of data. *Optional:*
-  if specified, it overrides the value of the global declaration
-  =page_gen-dirs=.
-- =data= :: is the name of the data file to read (YAML, Json, or CSV).
-  Use the full path if your data is structured in a hierarchy. For
-  instance: =hierarchy.people= will loop over a variable =people= in the
-  =_data/hierarchy.yml= file
-- =name= :: is the name of a field in data which contains a unique
-  identifier that can be used to generate a filename
-- =name_expr= :: is an optional Ruby expression used to generate a
-  filename. The expression can reference fields of the data being read
-  using the =record= hash(e.g.,
-  =record['first_name'] + "_" + record['last_name']=) *Optional:* if
-  set, this overrides =name=
-- =title= :: is the name of a field in data which is used for the page
-  title. *Optional:* if not specified, the generator uses the filename.
-- =title_expr= :: is an optional Ruby expression used to generate the
+- =page_gen-dirs= specifies whether we want to generate named folders (=true=)
+  or not (=false=) for all generated data.
+
+- =page_gen= is an array of specifying for which data we want to generate
+  individual pages.
+
+Each entry in =page_gen= can (in some cases must) contain the following fields:
+
+- =data= is the name of the data file to read (YAML, Json, or CSV).  Use the
+  full path, if your data is structured in a hierarchy. For instance:
+  =hierarchy.people= will loop over the variable =people= in the
+  =_data/hierarchy.yml= file.
+
+- =template= is the name of a template used to layout data in the
+  page. 
+  /Optional, it defaults to the value =data= if not specified./
+
+- =dir= is the directory where pages are generated (it defaults to
+  the value of =data=).
+  /Optional: if not specified, the generator uses the value of the =data= field./
+
+- =name= is the name of a field in the data used to generate a filename.  You
+  need to ensure values in the chosen field are unique, or some files will get
+  overwritten.
+
+- =name_expr= is an optional Ruby expression used to generate a filename. The
+  expression can reference fields of the data being read using the =record=
+  hash (e.g., =record['first_name'] + "_" + record['last_name']=; see the
+  documentation of =filter_condition= for more details.)
+  /Optional: used in  alternative to =name=. If set it overrides =name=/
+
+- =index_files= specifies whether we want to generate named
+  folders (true) or not (false) for the current set of data.
+  /Optional: if specified, it overrides the value of the global declaration =page_gen-dirs=./
+
+- =title= is the name of a field in data which is used for the page
+  title. 
+  /Optional: if not specified, the generator uses the filename./
+
+- =title_expr= is an optional Ruby expression used to generate the
   page title. The expression can reference fields of the data being read
-  using the =record= hash(e.g.,
-  =record['first_name'] + "_" + record['last_name']=) *Optional:* if
-  set, this overrides =title=
-- =template= :: is the name of a template to generate the pages (it
-  defaults to the value of =data= + ".html"). *Optional:* if not set,
-  the generator uses the value of the =data= field
-- =dir= :: is the directory where pages are generated (it defaults to
-  the value of =data=). *Optional:* if not specified, the generator uses
-  the value of the =data= field.
-- =extension= :: is the extension of the generated file. *Optional:* if
-  not specified, the generator uses "html" extension.
-- =page_data_prefix= :: is the prefix used to output the page data.
-  *Optional:* if not specified, no prefix is used
-- =filter= :: is a property of each data record that must return a
+  using the =record= hash (e.g., =record['first_name'] + "_" + record['last_name']=).
+  /Optional, but if set, it overrides =title=./
+
+- =extension= is the extension of the generated files. 
+  /Optional: if not specified, the generator uses =html= extension./
+
+- =page_data_prefix= is the prefix used to output the page data.
+  /Optional: if not specified, no prefix is used./
+
+- =filter= is a property of each data record that must return a
   true-ish value for the record to be included in the list of files to
-  be generated. *Optional:* if not specified, all records from the
-  dataset are included (see also =filter_condition=).
-- =filter_condition= :: is a string containing a Ruby expression which
-  evaluates to a true-ish value. The condition can reference fields of
-  the data being read using the =record= hash (e.g.,
-  =record['author'] == 'George Orwell'=). *Optional:* if not specified,
-  all records from the dataset are included (see also =filter=).
+  be generated.
+  /Optional:* if not specified, all records from the dataset are included (see also =filter_condition=)./
 
-*Notes*
+- =filter_condition= is a string containing a Ruby expression which evaluates
+  to a true-ish value. The condition can reference fields of the data being
+  read using the =record= hash (e.g., =record['author'] == 'George
+  Orwell'=).
+  /Optional:* if not specified, all records from the dataset are included (see also =filter=)./
 
-- More than one data source can be specified: the generator iterates
-  over each element of the =data_gen= array.
-- The same data structure can be referenced different times, maybe with
-  different target directories. This is useful to group pages in
-  different directories, using =filter_condition=.
+*Note.* The same data structure can be referenced different times, maybe with
+different target directories. This is useful to group pages in different
+directories, using =filter_condition=.
 
 A liquid tag is also made available to generate a link to a given page.
 For instance:
@@ -143,93 +147,12 @@ For instance:
 
 generates a link to =page_name= in =dir=.
 
-* Named Folders
-  :PROPERTIES:
-  :CUSTOM_ID: named-folders
-  :END:
-
-By default the plugin generates one filename per record. If you prefer
-to generate named folders, set the =page_gen-dirs= to true in
-=config.yml=.
-
-* Example
-  :PROPERTIES:
-  :CUSTOM_ID: example
-  :END:
-
-1. You have an =members.yml= file stored in the =_data= directory of
-   your Jekyll website, with the following content:
-
-   - name: adolfo villafiorita bio: long bio goes here
-   - name: pietro molini bio: another long bio
-   - name: aaron ciaghi bio: another very long bio
-
-Alternatively, you could have =members.json= file stored in the =_data=
-directory with the following content and the example would work the
-same:
-
-#+BEGIN_EXAMPLE
-  [
-    {
-      "name": "adolfo villafiorita",
-      "bio": "long bio goes here"
-    },
-    {
-      "name": "pietro molini",
-      "bio": "another long bio"
-    },
-    {
-      "name": "aaron ciaghi",
-      "bio": "another very long bio"
-    }
-  ]
-#+END_EXAMPLE
-
-2. There is a =profile.html= file stored in the =_layouts= directory:
-
-#+BEGIN_EXAMPLE
-  <h1>{{page.name}}</h1>
-
-  {{page.bio}}
-#+END_EXAMPLE
-
-3. =_config.yml= contains the following:
-
-   page_gen:
-
-   - data: 'members' template: 'profile' name: 'name' dir: 'people'
-
-Then, when building the site, this generator will create a directory
-=people= containing, for each record in =members.yml=, a file with the
-record data formatted according to the =profile.html= layout. The record
-used to generate the filename of each page is =name=, sanitized.
-
-#+BEGIN_EXAMPLE
-  $ cd example
-  $ jekyll build
-  $ cat _site/people/adolfo-villafiorita.html
-  <h1>Adolfo Villafiorita</h1>
-
-  long bio goes here
-#+END_EXAMPLE
-
-Check the example directory for a live demo. (Notice that the ruby file
-in =_plugins= is a symbolic link; you might have to remove the link and
-manually copy the ruby file in the =_plugins= directory, if symbolic
-links do not work in your system.)
-
 * Filters
-  :PROPERTIES:
-  :CUSTOM_ID: filters
-  :END:
 
-There are three different ways which you can use to show only the
-relevant records of a data structure in your website:
+There are three different ways which you can use to show only the relevant
+records of a data structure in your website:
 
 ** Do not link uninteresting pages
-   :PROPERTIES:
-   :CUSTOM_ID: do-not-link-uninteresting-pages
-   :END:
 
 Generate pages for all records (relevant and not), but link only the
 interesting pages.
@@ -247,15 +170,12 @@ is true will be easily accessible (since only these have an explicit
 link in our website).
 
 ** Use the =filter= condition
-   :PROPERTIES:
-   :CUSTOM_ID: use-the-filter-condition
-   :END:
 
 Use the =filter= property.
 
-In this case, all records in your data structure should have a boolean
-field, let us say, =publish=. Pages will be generated only for those
-records in which the =publish= field is true(-ish).
+In this case, all records in your data structure should have a boolean field,
+let us say, =publish=. Pages will be generated only for those records in which
+the =publish= field is true(-ish).
 
 Consider the following declaration in =_config.yml=:
 
@@ -267,20 +187,17 @@ Consider the following declaration in =_config.yml=:
     filter: read  # read is a boolean value in the YML file
 #+END_EXAMPLE
 
-In this case, a page will be generated only for the books in which the
-field =read= is =true=.
+In this case, a page will be generated only for the books in which the field
+=read= is =true=.
 
 ** Use the =filter_condition= condition
-   :PROPERTIES:
-   :CUSTOM_ID: use-the-filter_condition-condition
-   :END:
 
 Use the =filter_condition= property.
 
-The field should contain a string which evaluates to a boolean
-expression. The string may reference fields of the data structure using
-the =record[<field_name>]= notation, like, for instance in
-=record['author'] == 'George Orwell'=.
+The field should contain a string which evaluates to a boolean expression. The
+string may reference fields of the data structure using the
+=record[<field_name>]= notation, like, for instance in =record['author'] ==
+'George Orwell'=.
 
 In this case pages will be generated only for the records satisfying the
 evaluation of the =filter_condition=.
@@ -295,9 +212,9 @@ evaluation of the =filter_condition=.
     filter_condition: "record['read'] == false"
 #+END_EXAMPLE
 
-that allows me to generate a list of the books I have *not* read. The
-=filter= keyword, in this case, is no good, since I need to test for
-falsity (=read= has to be false).
+that allows me to generate a list of the books I have *not* read. The =filter=
+keyword, in this case, is no good, since I need to test for falsity (=read=
+has to be false).
 
 The filter condition allows to select only those records in which
 =record['read']= is false.
@@ -353,21 +270,18 @@ Consider the following example:
     filter_condition: "record['read'] == false"
 #+END_EXAMPLE
 
-which splits the =book= data structure in two different folders,
-according to the value of the =read= flag.
+which splits the =book= data structure in two different folders, according to
+the value of the =read= flag.
 
-Of course, such an approach makes sense only for variables with a
-limited number of values, since one needs to explicitly specify in
-=_config.yml= conditions and target directories.
+Of course, such an approach makes sense only for variables with a limited
+number of values, since one needs to explicitly specify in =_config.yml=
+conditions and target directories.
 
 * Generating Filename with an Expression
-  :PROPERTIES:
-  :CUSTOM_ID: generating-filename-with-an-expression
-  :END:
 
 You can generate filenames with an expression, by replacing =name= with
-=name_expr=. For example, if you have data in a .yml file that looks
-like this:
+=name_expr=. For example, if you have data in a .yml file that looks like
+this:
 
 #+BEGIN_EXAMPLE
       - first_name: adolfo
@@ -391,37 +305,94 @@ Your =_config.yml= could contain the following:
       dir: 'people'
 #+END_EXAMPLE
 
-* Compatibility
-  :PROPERTIES:
-  :CUSTOM_ID: compatibility
-  :END:
+* Example
 
-Run with Jekyll 3.1.6, 3.6.2 and 3.8.5, it should also work with
-previous versions of Jekyll. Try with the included example and open an
-issue if you find any compatibility issue.
+1. You have a =members.yml= file in the =_data= directory, with the following
+   content:
+
+#+BEGIN_EXAMPLE
+   - name: adolfo villafiorita
+     bio: long bio goes here
+   - name: pietro molini 
+     bio: another long bio
+   - name: aaron ciaghi 
+     bio: another very long bio
+#+END_EXAMPLE
+
+Alternatively, you could have a =members.json= (or a =members.csv= file)
+stored in the =_data= directory with the following content and the example
+would work the same:
+
+#+BEGIN_EXAMPLE
+  [
+    {
+      "name": "adolfo villafiorita",
+      "bio": "long bio goes here"
+    },
+    {
+      "name": "pietro molini",
+      "bio": "another long bio"
+    },
+    {
+      "name": "aaron ciaghi",
+      "bio": "another very long bio"
+    }
+  ]
+#+END_EXAMPLE
+
+2. There is a =profile.html= file in the =_layouts= directory:
+
+#+BEGIN_EXAMPLE
+  <h1>{{page.name}}</h1>
+
+  {{page.bio}}
+#+END_EXAMPLE
+
+3. =_config.yml= contains the following:
+
+#+BEGIN_EXAMPLE yaml
+   page_gen:
+   - data: 'members'
+     template: 'profile'
+     name: 'name'
+     dir: 'people'
+#+END_EXAMPLE
+
+Then, when building the site, this generator will create a directory =people=
+containing, for each record in =members.yml=, a file with the record data
+formatted according to the =profile.html= layout. The record used to generate
+the filename of each page is =name=, sanitized.
+
+#+BEGIN_EXAMPLE
+  $ cd example
+  $ jekyll build
+  $ cat _site/people/adolfo-villafiorita.html
+  <h1>Adolfo Villafiorita</h1>
+
+  long bio goes here
+#+END_EXAMPLE
+
+Check the example directory for a live demo. (Notice that the ruby file in
+=_plugins= is a symbolic link; you might have to remove the link and manually
+copy the ruby file in the =_plugins= directory, if symbolic links do not work
+in your system.)
+
+* Compatibility
+
+Run successfully at least once with the following Jekyll versions: 4.0.1,
+3.8.5, 3.6.2, 3.1.6.  Try with the included example and open an issue if you
+find any compatibility issue.
 
 * Author and Contributors
-  :PROPERTIES:
-  :CUSTOM_ID: author-and-contributors
-  :END:
 
-[[http://ict4g.net/adolfo][Adolfo Villafiorita]] with
-[[https://github.com/avillafiorita/jekyll-datapage_gen/graphs/contributors][contributions
-from various authors]].
+[[http://ict4g.net/adolfo][Adolfo Villafiorita]] with several excellent [[https://github.com/avillafiorita/jekyll-datapage_gen/graphs/contributors][contributions from various authors]].
 
 * Known Bugs
-  :PROPERTIES:
-  :CUSTOM_ID: known-bugs
-  :END:
 
 Some known bugs and an unknown number of unknown bugs.
 
 (See the open issues for the known bugs.)
 
 * License
-  :PROPERTIES:
-  :CUSTOM_ID: license
-  :END:
 
-Distributed under the terms of the
-[[http://opensource.org/licenses/MIT][MIT License]].
+Distributed under the terms of the [[http://opensource.org/licenses/MIT][MIT License]].
