@@ -26,6 +26,7 @@ module Jekyll
     #
     # - `index_files` specifies if we want to generate named folders (true) or not (false)
     # - `dir` is the default output directory
+    # - `page_data_prefix` is the prefix used to output the page data
     # - `data` is the data defined in `_data.yml` of the record for which we are generating a page
     # - `name` is the key in `data` which determines the output filename
     # - `name_expr` is an expression for generating the output filename
@@ -33,7 +34,7 @@ module Jekyll
     # - `title_expr` is an expression for generating the page title
     # - `template` is the name of the template for generating the page
     # - `extension` is the extension for the generated file
-    def initialize(site, base, index_files, dir, data, name, name_expr, title, title_expr, template, extension)
+    def initialize(site, base, index_files, dir, page_data_prefix, data, name, name_expr, title, title_expr, template, extension)
       @site = site
       @base = base
 
@@ -83,11 +84,14 @@ module Jekyll
       # add all the information defined in _data for the current record to the
       # current page (so that we can access it with liquid tags)
 
-      if data.key?('name')
-        data['_name'] = data['name']
+      if page_data_prefix
+        self.data[page_data_prefix] = data
+      else
+        if data.key?('name')
+          data['_name'] = data['name']
+        end
+        self.data.merge!(data)
       end
-
-      self.data.merge!(data)
     end
   end
 
@@ -117,6 +121,7 @@ module Jekyll
           title_expr = data_spec['title_expr']
           dir = data_spec['dir'] || data_spec['data']
           extension = data_spec['extension'] || "html"
+          page_data_prefix = data_spec['page_data_prefix']
 
           if site.layouts.key? template
             # records is the list of records defined in _data.yml
@@ -140,7 +145,7 @@ module Jekyll
             records = records.select { |record| eval(data_spec['filter_condition']) } if data_spec['filter_condition']
 
             records.each do |record|
-              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, record, name, name_expr, title, title_expr, template, extension)
+              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, page_data_prefix, record, name, name_expr, title, title_expr, template, extension)
             end
           else
             puts "error (datapage_gen). could not find template #{template}" if not site.layouts.key? template
