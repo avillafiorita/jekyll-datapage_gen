@@ -1,0 +1,1 @@
+../../lib/jekyll-datapage-generator.rb
