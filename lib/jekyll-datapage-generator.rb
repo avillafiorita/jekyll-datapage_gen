@@ -128,19 +128,20 @@ module Jekyll
       if data
         data.each do |data_spec|
           index_files_for_this_data = data_spec['index_files'] != nil ? data_spec['index_files'] : index_files
-          template = data_spec['template'] || data_spec['data']
-          name = data_spec['name']
-          name_expr = data_spec['name_expr']
-          title = data_spec['title']
-          title_expr = data_spec['title_expr']
-          dir = data_spec['dir'] || data_spec['data']
-          extension = data_spec['extension'] || "html"
+          template         = data_spec['template'] || data_spec['data']
+          name             = data_spec['name']
+          name_expr        = data_spec['name_expr']
+          title            = data_spec['title']
+          title_expr       = data_spec['title_expr']
+          dir              = data_spec['dir'] || data_spec['data']
+          extension        = data_spec['extension'] || "html"
           page_data_prefix = data_spec['page_data_prefix']
-          paginatehook = data_spec['paginatehook']
+          paginatehook     = data_spec['paginatehook']
 
           if site.layouts.key? template
             # records is the list of records defined in _data.yml
             # for which we want to generate different pages
+            
             records = nil
             data_spec['data'].split('.').each do |level|
               if records.nil?
