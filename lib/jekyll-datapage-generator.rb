@@ -26,13 +26,15 @@ module Jekyll
     #
     # - `index_files` specifies if we want to generate named folders (true) or not (false)
     # - `dir` is the default output directory
+    # - `page_data_prefix` is the prefix used to output the page data
     # - `data` is the data defined in `_data.yml` of the record for which we are generating a page
     # - `name` is the key in `data` which determines the output filename
     # - `name_expr` is an expression for generating the output filename
+    # - `title` is the key in `data` which determines the page title
+    # - `title_expr` is an expression for generating the page title
     # - `template` is the name of the template for generating the page
     # - `extension` is the extension for the generated file
-    # - `page_data_prefix` is the prefix used to output the page data
-    def initialize(site, base, index_files, dir, data, name, name_expr, template, extension)
+    def initialize(site, base, index_files, dir, page_data_prefix, data, name, name_expr, title, title_expr, template, extension)
       @site = site
       @base = base
 
@@ -57,6 +59,20 @@ module Jekyll
         end
       end
 
+      if title_expr
+        record = data
+        raw_title = eval(title_expr)
+        if raw_title == nil
+          puts "error (datapage_gen). title_expr '#{title_expr}' generated an empty value in record #{data}"
+          return
+        end
+      else
+        raw_title = data[title]
+        if raw_title == nil
+          raw_title = raw_filename # for backwards compatibility
+        end
+      end
+
       filename = sanitize_filename(raw_filename).to_s
 
       @dir = dir + (index_files ? "/" + filename + "/" : "")
@@ -64,7 +80,7 @@ module Jekyll
 
       self.process(@name)
       self.read_yaml(File.join(base, '_layouts'), template + ".html")
-      self.data['title'] = raw_filename
+      self.data['title'] = raw_title
       # add all the information defined in _data for the current record to the
       # current page (so that we can access it with liquid tags)
 
@@ -101,6 +117,8 @@ module Jekyll
           template = data_spec['template'] || data_spec['data']
           name = data_spec['name']
           name_expr = data_spec['name_expr']
+          title = data_spec['title']
+          title_expr = data_spec['title_expr']
           dir = data_spec['dir'] || data_spec['data']
           extension = data_spec['extension'] || "html"
           page_data_prefix = data_spec['page_data_prefix']
@@ -127,7 +145,7 @@ module Jekyll
             records = records.select { |record| eval(data_spec['filter_condition']) } if data_spec['filter_condition']
 
             records.each do |record|
-              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, record, name, name_expr, template, extension, page_data_prefix)
+              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, page_data_prefix, record, name, name_expr, title, title_expr, template, extension)
             end
           else
             puts "error (datapage_gen). could not find template #{template}" if not site.layouts.key? template
