@@ -16,6 +16,7 @@ page_gen:
     template: 'book'
     name: 'title'
     dir: 'all-books'
+    debug: true
 
   - data: 'books'
     template: 'book'

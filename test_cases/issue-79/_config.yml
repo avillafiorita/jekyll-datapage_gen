@@ -1,0 +1,12 @@
+plugins:
+  - jekyll-datapage-generator
+
+page_gen-dirs: false
+
+page_gen:
+  - data: acts.records
+    debug: true
+    template: page-act
+    dir: acts
+    name_expr: record['fields']['act_name'] + "-" + record['id']
+    title_expr: record['fields']['act_name']

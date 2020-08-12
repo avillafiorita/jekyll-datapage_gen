@@ -1,0 +1,11 @@
+---
+title: Data Check
+---
+<h1>This is to check data defined in _data.yml</h1>
+
+{% for record in site.data.acts.records %}
+<ul>
+    <li>{{ record['id'] }}</li>
+    <li>{{ record['fields']['act_name'] }}</li>
+</ul>
+{% endfor %}

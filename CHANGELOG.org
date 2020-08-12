@@ -1,0 +1,24 @@
+#+TITLE: ChangeLog
+#+AUTHOR: Adolfo Villafiorita
+#+STARTUP: showall
+
+* Version 1.3.0
+
+** New Functions and Fixes
+
+- Support for =title_expr= (see #72)
+- Support for =page_data_prefix= (see #73)
+- Added =debug= option
+
+** Documentation
+
+- Added ChangeLog (see #77)
+- Various fixes in the [[file:README.org][README]] file
+
+** Code
+
+- Minor changes to code and comments to make it more readable
+- Bumped kramdown to version 2.3.0 in test cases (automatic merge from dependabot)
+- Added test cases for issue #71
+- Added test case for issue #79
+
