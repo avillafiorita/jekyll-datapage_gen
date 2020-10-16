@@ -94,7 +94,17 @@ module Jekyll
       @name = (index_files ? "index" : filename) + "." + extension.to_s
 
       self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), template + ".html")
+
+      if @site.layouts[template].path.end_with? 'html'
+        @path = @site.layouts[template].path.dup
+      else
+        @path = File.join(@site.layouts[template].path, @site.layouts[template].name)
+      end
+
+      base_path = @site.layouts[template].path
+      base_path.slice! @site.layouts[template].name
+      self.read_yaml(base_path, @site.layouts[template].name)
+
       self.data['title'] = raw_title
 
       # add all the information defined in _data for the current record to the
