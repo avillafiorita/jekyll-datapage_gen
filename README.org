@@ -42,7 +42,7 @@ the source file from the =_plugins= directory or you might run into errors./
 
 * Quick Start
 
-Read the [[Example]] section or the included example to get started quickly.
+Read the [[example]] section or the included example to get started quickly.
 
 * Usage
 
