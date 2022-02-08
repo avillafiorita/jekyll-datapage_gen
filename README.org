@@ -46,9 +46,14 @@ Read the [[example]] section or the included example to get started quickly.
 
 * Usage
 
-- Specify in =_config.yml= the data files for which you want to generate
-  individual pages. 
-- Launch Jekyll
+You have some data in a data file for which you want to generate
+individual pages.
+
+1. Specify in ~_config.yml~ the data file(s) for which you want to
+   generate individual pages
+2. Define in ~_layouts~ the layout Jekyll will use to generate the
+   individual pages
+3. Launch Jekyll
 
 The specification in =config.yml= looks like:
 
@@ -67,87 +72,89 @@ The specification in =config.yml= looks like:
     extension: [extension used to generate the filename]
     filter: [property to filter data records by]
     filter_condition: [a Ruby expression to filter data]
+    page_data_prefix: [prefix used to name variables]
+    debug: [boolean, if true output more informative messages]
     
   [another set of data, if you want ...]
 #+END_EXAMPLE
 
 where:
 
-- =page_gen-dirs= specifies whether we want to generate named folders (=true=)
-  or not (=false=) for all generated data.
+- ~page_gen-dirs~ specifies whether we want to generate named folders (~true~)
+  or not (~false~) for all generated data.
 
-- =page_gen= is an array specifying a data for which individual pages
+- ~page_gen~ is an array specifying a data for which individual pages
   have to be generated.
 
-Each entry in =page_gen= can (in some cases must) contain the following fields:
+Each entry in ~page_gen~ can (in some cases must) contain the following fields:
 
-- =data= is the name of the data file to read (YAML, Json, or CSV).  Use the
+- ~data~ is the name of the data file to read (YAML, Json, or CSV).  Use the
   full path, if your data is structured in a hierarchy. For instance:
-  =hierarchy.people= will loop over the variable =people= in the
-  =_data/hierarchy.yml= file.
+  ~hierarchy.people~ will loop over the variable ~people~ in the
+  ~_data/hierarchy.yml~ file.
 
-- =template= is the name of a template used to layout data in the
+- ~template~ is the name of a template used to layout data in the
   page. 
-  /Optional, it defaults to the value =data= if not specified./
+  /Optional, if not specified, the plugin uses the layout with the same name of the value of ~data~./
 
-- =dir= is the directory where pages are generated (it defaults to
-  the value of =data=).
-  /Optional: if not specified, the generator uses the value of the =data= field./
+- ~dir~ is the directory where pages are generated.
+  /Optional: if not specified, the generator puts pages in a directory with the same name
+  of the value of the ~data~ field./
 
-- =name= is the name of a field in the data used to generate a filename.  You
+- ~name~ is the name of a field in the data used to generate a filename.  You
   need to ensure values in the chosen field are unique, or some files will get
   overwritten.
 
-- =name_expr= is an optional Ruby expression used to generate a filename. The
-  expression can reference fields of the data being read using the =record=
-  hash (e.g., =record['first_name'] + "_" + record['last_name']=; see the
-  documentation of =filter_condition= for more details.)
-  /Optional: used in  alternative to =name=. If set it overrides =name=/
+- ~name_expr~ is an optional Ruby expression used to generate a filename. The
+  expression can reference fields of the data being read using the ~record~
+  hash (e.g., ~record['first_name'] + "_" + record['last_name']~; see the
+  documentation of ~filter_condition~ for more details.)
+  /Optional: used in  alternative to ~name~. If set it overrides ~name~/
 
-- =index_files= specifies whether we want to generate named
+- ~index_files~ specifies whether we want to generate named
   folders (true) or not (false) for the current set of data.
-  /Optional: if specified, it overrides the value of the global declaration =page_gen-dirs=./
+  /Optional: if specified, it overrides the value of the global declaration ~page_gen-dirs~./
 
-- =title= is the name of a field in data which is used for the page
+- ~title~ is the name of a field in data which is used for the page
   title. 
-  /Optional: if not specified, the generator uses the filename./
+  /Optional: if not specified, the generator uses the filename as the page title./
 
-- =title_expr= is an optional Ruby expression used to generate the
+- ~title_expr~ is an optional Ruby expression used to generate the
   page title. The expression can reference fields of the data being read
-  using the =record= hash (e.g., =record['first_name'] + "_" + record['last_name']=).
-  /Optional, but if set, it overrides =title=./
+  using the ~record~ hash (e.g., ~record['first_name'] + "_" + record['last_name']~).
+  /Optional, but if set, it overrides ~title~./
 
-- =extension= is the extension of the generated files. 
-  /Optional: if not specified, the generator uses =html= extension./
+- ~extension~ is the extension of the generated files. 
+  /Optional: if not specified, the generator uses ~html~ extension./
 
-- =page_data_prefix= is the prefix used to output the page data.  Data
+- ~page_data_prefix~ is the prefix used to output the page data.  Data
   read from each record is made available in the page so that it can
   be accessed using liquid tags.  In some cases, however, there might
-  be clashes with existing tags.  =page_data_prefix= can be used to
+  be clashes with existing tags.  ~page_data_prefix~ can be used to
   prefix all data read from records and avoid the problem mentioned
   above.
   /Optional: if not specified, no prefix is used./
 
-- =filter= is a property of each data record that must return a
+- ~filter~ is a property of each data record that must return a
   true-ish value for the record to be included in the list of files to
   be generated.
   See [[Filtering Data]], below, for more details.
-  /Optional:* if not specified, all records from the dataset are included (see also =filter_condition=)./
+  /Optional: if not specified, all records from the dataset are included (see also ~filter_condition~)./
 
-- =filter_condition= is a string containing a Ruby expression which evaluates
+- ~filter_condition~ is a string containing a Ruby expression which evaluates
   to a true-ish value. The condition can reference fields of the data being
-  read using the =record= hash (e.g., =record['author'] == 'George
-  Orwell'=).
+  read using the ~record~ hash (e.g., ~record['author'] ~~ 'George
+  Orwell'~).
   See [[Filtering Data]], below, for more details.
-  /Optional:* if not specified, all records from the dataset are included (see also =filter=)./
+  /Optional: if not specified, all records from the dataset are included (see also ~filter~)./
 
-- =debug= is a Boolean value specifying whether the plugin will output information
+- ~debug~ is a Boolean value specifying whether the plugin will output information
   about the configuration and data read.
-  /Optional:* if not specified, no debug information is outputted./
+  /Optional: if not specified, no debug information is outputted./
 
 *Note.* The same data structure can be referenced different times, maybe with
 different target directories. This is useful to group pages in different
-directories, using =filter_condition=.
+directories, using ~filter_condition~.
 
 A liquid tag is also made available to generate a link to a given page.
 For instance:
@@ -156,7 +163,7 @@ For instance:
      {{ page_name | datapage_url: dir }}
 #+END_EXAMPLE
 
-generates a link to =page_name= in =dir=.
+generates a link to ~page_name~ in ~dir~.
 
 * Filtering Data
 
@@ -172,23 +179,23 @@ The uninteresting pages will still get generated but will not be easily
 accessible. A visitor has to guess the URL to access them. This is more
 of a workaround, rather than a solution.
 
-This is shown in the =books.md= file, in the section "Books I have
+This is shown in the ~books.md~ file, in the section "Books I have
 read".
 
 The filter is applied to the links to tha generated pages. Pages will
-still be generated for all books, but only those for which =book.read=
+still be generated for all books, but only those for which ~book.read~
 is true will be easily accessible (since only these have an explicit
 link in our website).
 
-** Use the =filter= condition
+** Use the ~filter~ condition
 
-Use the =filter= property.
+Use the ~filter~ property.
 
 In this case, all records in your data structure should have a boolean field,
-let us say, =publish=. Pages will be generated only for those records in which
-the =publish= field is true(-ish).
+let us say, ~publish~. Pages will be generated only for those records in which
+the ~publish~ field is true(-ish).
 
-Consider the following declaration in =_config.yml=:
+Consider the following declaration in ~_config.yml~:
 
 #+BEGIN_EXAMPLE
   - data: 'books'
@@ -199,42 +206,42 @@ Consider the following declaration in =_config.yml=:
 #+END_EXAMPLE
 
 In this case, a page will be generated only for the books in which the field
-=read= is =true=.
+~read~ is ~true~.
 
-** Use the =filter_condition= condition
+** Use the ~filter_condition~ condition
 
-Use the =filter_condition= property.
+Use the ~filter_condition~ property.
 
 The field should contain a string which evaluates to a boolean expression. The
 string may reference fields of the data structure using the
-=record[<field_name>]= notation, like, for instance in =record['author'] ==
-'George Orwell'=.
+~record[<field_name>]~ notation, like, for instance in ~record['author'] ~~
+'George Orwell'~.
 
 In this case pages will be generated only for the records satisfying the
-evaluation of the =filter_condition=.
+evaluation of the ~filter_condition~.
 
-*Example 1.* Consider the following declaration in =_config.yml=:
+*Example 1.* Consider the following declaration in ~_config.yml~:
 
 #+BEGIN_EXAMPLE
   - data: 'books'
     template: 'book'
     name: 'title'
     dir: 'books-i-have-not-read'
-    filter_condition: "record['read'] == false"
+    filter_condition: "record['read'] ~~ false"
 #+END_EXAMPLE
 
-that allows me to generate a list of the books I have *not* read. The =filter=
-keyword, in this case, is no good, since I need to test for falsity (=read=
+that allows me to generate a list of the books I have *not* read. The ~filter~
+keyword, in this case, is no good, since I need to test for falsity (~read~
 has to be false).
 
 The filter condition allows to select only those records in which
-=record['read']= is false.
+~record['read']~ is false.
 
-*Remark* If you want to filter on nested fields, use multiple =[]=. For
+*Remark* If you want to filter on nested fields, use multiple ~[]~. For
 instance:
 
 #+BEGIN_EXAMPLE
-  filter_condition: "record['did-i']['read'] == false"
+  filter_condition: "record['did-i']['read'] ~~ false"
 #+END_EXAMPLE
 
 works with the following data structure:
@@ -249,21 +256,21 @@ works with the following data structure:
     position: 1
 #+END_EXAMPLE
 
-*Example 2.* Consider the following declaration in =_config.yml=:
+*Example 2.* Consider the following declaration in ~_config.yml~:
 
 #+BEGIN_EXAMPLE
   - data: 'books'
     template: 'book'
     name: 'title'
     dir: 'books-by-orwell'
-    filter_condition: "record['author'] == 'George Orwell'"
+    filter_condition: "record['author'] ~~ 'George Orwell'"
 
 #+END_EXAMPLE
 
-In this case, I am testing the =author= field and generating pages only
+In this case, I am testing the ~author~ field and generating pages only
 for the books by George Orwell.
 
-As a final consideration, =filter_condition= allows one to deploy pages
+As a final consideration, ~filter_condition~ allows one to deploy pages
 in different directories according to specific properties.
 
 Consider the following example:
@@ -273,26 +280,26 @@ Consider the following example:
     template: 'book'
     name: 'title'
     dir: 'books-read'
-    filter_condition: "record['read'] == true"
+    filter_condition: "record['read'] ~~ true"
   - data: 'books'
     template: 'book'
     name: 'title'
     dir: 'books-to-read'
-    filter_condition: "record['read'] == false"
+    filter_condition: "record['read'] ~~ false"
 #+END_EXAMPLE
 
-which splits the =book= data structure in two different folders, according to
-the value of the =read= flag.
+which splits the ~book~ data structure in two different folders, according to
+the value of the ~read~ flag.
 
 Of course, such an approach makes sense only for variables with a limited
-number of values, since one needs to explicitly specify in =_config.yml=
+number of values, since one needs to explicitly specify in ~_config.yml~
 conditions and target directories.
 
 
 * Generating Filename with an Expression
 
-You can generate filenames with an expression, by replacing =name= with
-=name_expr=. For example, if you have data in a .yml file that looks like
+You can generate filenames with an expression, by replacing ~name~ with
+~name_expr~. For example, if you have data in a .yml file that looks like
 this:
 
 #+BEGIN_EXAMPLE
@@ -307,7 +314,7 @@ this:
         bio: another very long bio
 #+END_EXAMPLE
 
-Your =_config.yml= could contain the following:
+Your ~_config.yml~ could contain the following:
 
 #+BEGIN_EXAMPLE
   page_gen:
@@ -319,7 +326,7 @@ Your =_config.yml= could contain the following:
 
 * Example
 
-1. You have a =members.yml= file in the =_data= directory, with the following
+1. You have a ~members.yml~ file in the ~_data~ directory, with the following
    content:
 
 #+BEGIN_EXAMPLE
@@ -331,8 +338,8 @@ Your =_config.yml= could contain the following:
      bio: another very long bio
 #+END_EXAMPLE
 
-Alternatively, you could have a =members.json= (or a =members.csv= file)
-stored in the =_data= directory with the following content and the example
+Alternatively, you could have a ~members.json~ (or a ~members.csv~ file)
+stored in the ~_data~ directory with the following content and the example
 would work the same:
 
 #+BEGIN_EXAMPLE
@@ -352,7 +359,7 @@ would work the same:
   ]
 #+END_EXAMPLE
 
-2. There is a =profile.html= file in the =_layouts= directory:
+2. There is a ~profile.html~ file in the ~_layouts~ directory:
 
 #+BEGIN_EXAMPLE
   <h1>{{page.name}}</h1>
@@ -360,7 +367,7 @@ would work the same:
   {{page.bio}}
 #+END_EXAMPLE
 
-3. =_config.yml= contains the following:
+3. ~_config.yml~ contains the following:
 
 #+BEGIN_EXAMPLE yaml
    page_gen:
@@ -370,10 +377,10 @@ would work the same:
      dir: 'people'
 #+END_EXAMPLE
 
-Then, when building the site, this generator will create a directory =people=
-containing, for each record in =members.yml=, a file with the record data
-formatted according to the =profile.html= layout. The record used to generate
-the filename of each page is =name=, sanitized.
+Then, when building the site, this generator will create a directory ~people~
+containing, for each record in ~members.yml~, a file with the record data
+formatted according to the ~profile.html~ layout. The record used to generate
+the filename of each page is ~name~, sanitized.
 
 #+BEGIN_EXAMPLE
   $ cd example
@@ -385,8 +392,8 @@ the filename of each page is =name=, sanitized.
 #+END_EXAMPLE
 
 Check the example directory for a live demo. (Notice that the ruby file in
-=_plugins= is a symbolic link; you might have to remove the link and manually
-copy the ruby file in the =_plugins= directory, if symbolic links do not work
+~_plugins~ is a symbolic link; you might have to remove the link and manually
+copy the ruby file in the ~_plugins~ directory, if symbolic links do not work
 in your system.)
 
 * Change Log
@@ -395,7 +402,7 @@ See the [[file:CHANGELOG.org][CHANGELOG]] file.
 
 * Compatibility
 
-Run successfully at least once with the following Jekyll versions: 4.0.1,
+Run successfully at least once with the following Jekyll versions: 4.2.1., 4.0.1,
 3.8.5, 3.6.2, 3.1.6.  Try with the included example and open an issue if you
 find any compatibility issue.
 
