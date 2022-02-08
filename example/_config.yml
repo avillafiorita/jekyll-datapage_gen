@@ -43,4 +43,9 @@ page_gen:
     template: 'profile'
     name: 'full_name'
     dir: 'hierarchy'
+
+  - data: 'members'
+    template: 'metadata'
+    dir: 'metadata'
+    name: 'full_name'
     
