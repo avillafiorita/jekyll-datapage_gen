@@ -69,7 +69,7 @@ The specification in =config.yml= looks like:
     name_expr: [a Ruby expression to generate the filename (alternative to name)]
     title: [field used to generate the page title]
     title_expr: [a Ruby expression to generate the filename (alternative to title)]
-    extension: [extension used to generate the filename]
+    extension: [extension used to generate the filename.]
     filter: [property to filter data records by]
     filter_condition: [a Ruby expression to filter data]
     page_data_prefix: [prefix used to name variables]
@@ -126,6 +126,7 @@ Each entry in ~page_gen~ can (in some cases must) contain the following fields:
 
 - ~extension~ is the extension of the generated files. 
   /Optional: if not specified, the generator uses ~html~ extension./
+  If set to false, the file will be generated without an extension
 
 - ~page_data_prefix~ is the prefix used to output the page data.  Data
   read from each record is made available in the page so that it can
