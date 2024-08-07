@@ -91,7 +91,11 @@ module Jekyll
       filename = sanitize_filename(raw_filename).to_s
 
       @dir = dir + (index_files ? "/" + filename + "/" : "")
-      @name = (index_files ? "index" : filename) + "." + extension.to_s
+      @name = (index_files ? "index" : filename)
+      
+      if extension
+        @name += "." + extension.to_s
+      end
 
       self.process(@name)
 
@@ -147,9 +151,12 @@ module Jekyll
           title            = data_spec['title']
           title_expr       = data_spec['title_expr']
           dir              = data_spec['dir'] || data_spec['data']
-          extension        = data_spec['extension'] || "html"
           page_data_prefix = data_spec['page_data_prefix']
           debug            = data_spec['debug']
+
+          unless data_spec.key? 'extension'
+            data_spec['extension'] = 'html'
+          end
           
           if not site.layouts.key? template
             puts "error (datapage-gen). could not find template #{template}. Skipping dataset #{name}."
@@ -178,7 +185,7 @@ module Jekyll
             # we now have the list of all records for which we want to generate individual pages
             # iterate and call the constructor
             records.each do |record|
-              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, page_data_prefix, record, name, name_expr, title, title_expr, template, extension, debug)
+              site.pages << DataPage.new(site, site.source, index_files_for_this_data, dir, page_data_prefix, record, name, name_expr, title, title_expr, template, data_spec['extension'], debug)
             end
           end
         end

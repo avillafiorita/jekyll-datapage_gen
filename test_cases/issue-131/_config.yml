@@ -1,0 +1,8 @@
+page_gen-dirs: false
+
+page_gen:
+  - data: 'books'
+    template: 'book'
+    name: id
+    dir: books
+    extension: false
