@@ -64,6 +64,7 @@ The specification in =config.yml= looks like:
   - data: [name of a data set in _data]
     template: [name of template in _layouts: will be used to render pages]
     dir: [directory where filenames will be generated]
+    dir_expr: [a Ruby expression to generate the dir (alternative to dir)]
     index_files: [true|false]
     name: [field used to generate the filename]
     name_expr: [a Ruby expression to generate the filename (alternative to name)]
@@ -100,6 +101,11 @@ Each entry in ~page_gen~ can (in some cases must) contain the following fields:
 - ~dir~ is the directory where pages are generated.
   /Optional: if not specified, the generator puts pages in a directory with the same name
   of the value of the ~data~ field./
+
+- ~dir_expr~ is an optional Ruby expression used to generate the directory where the pages will be generated. The
+  expression can reference fields of the data being read using the ~record~
+  hash (e.g., ~record['first_name'] + "_" + record['last_name']~)
+  /Optional: used in  alternative to ~dir~. If set it overrides ~dir~/
 
 - ~name~ is the name of a field in the data used to generate a filename.  You
   need to ensure values in the chosen field are unique, or some files will get
